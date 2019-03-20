@@ -1,0 +1,80 @@
+
+
+#include "pch.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+struct dot {
+	int x;
+	int y;
+};
+
+void show(dot q) {
+	cout << "x: " << q.x << " ";
+	cout << "y: " << q.y << endl;
+}
+
+
+void sort(dot* q, int a) {
+	int i, mini = 0;
+	int min = q[0].x;
+	for (i = 1; i < a; i++) {
+		if (min > q[i].x) {
+			min = q[i].x;
+			mini = i;
+		}
+	}
+	while (a - mini != 0) {
+		dot b = q[a - 1];
+		for (int i = a - 1; i > 0; i--) {
+			q[i] = q[i - 1];
+		}
+		q[0] = b;
+		mini += 1;
+	}
+	show(q[0]);
+}
+
+void plos(dot* q, int a) {
+	double s = 0.0;
+	for (int i = 0; i < a - 1; i++) {
+		s += (q[i].x - q[0].x)*(q[i + 1].y - q[0].y) - (q[i].y - q[0].y)*(q[i + 1].x - q[0].x);
+	}
+	s = abs(s);
+	s /= 2.0;
+	cout << s;
+}
+
+int main()
+{
+	ifstream file("input.txt");
+	char buffer[81];
+	if (!file.is_open())
+	{
+		cout << "Файл in.txt не существует" << endl;
+		return -1;
+	}
+
+	ofstream out("output.txt");
+	if (!out.is_open())
+	{
+		cout << "Невозможно создать выходной файл out.txt" << endl;
+		return -2;
+	}
+	int a;
+	file >> a;
+	cout << a << endl;
+	dot *q = new dot[a];
+	int x, y;
+	for (int i = 0; i < a; i++) {
+		file >> x;
+		file >> y;
+		q[i].x = x;
+		q[i].y = y;
+	}
+	file.close();
+
+	sort(q, a);
+	plos(q, a);
+}
