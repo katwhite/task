@@ -1,0 +1,148 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+int main(void) 
+{ 
+FILE *f; 
+int *a; 
+int i,n=0,k=-1,t,m,s,l,b,c,q,w,e,r,o,j; 
+
+if ((f=fopen("61t.txt","rt"))==NULL) 
+{ 
+printf("error\n"); 
+return 1; 
+} 
+while(fscanf(f,"%d",&o)==1) 
+n++; 
+
+rewind(f); 
+a=(int*)malloc(n*sizeof(int)); 
+for (i=0;i<n;i++) 
+{ 
+fscanf(f,"%d",&a[i]); 
+} 
+if (a==NULL) 
+{ 
+printf("error2\n"); 
+return 1; 
+} 
+m=s=t=0; 
+q=w=e=1; 
+for(i=0;i<n;i++) 
+{ 
+if ((a[i] < a[i+1]) && (a[i+1] >= a[i+2])) 
+{ 
+l=a[i]; 
+b=a[i+1]; 
+c=l; 
+k=i+2; 
+printf("ab\n"); 
+break; 
+} 
+if((a[i]<a[i+1])&&(a[i+1]<a[i+2])&&(a[i+2]>=a[i+3])) 
+{ 
+l=a[i]; 
+b=a[i+1]; 
+c=a[i+2]; 
+k=i+3; 
+printf("abc\n"); 
+break; 
+} 
+} 
+
+
+
+if (k==-1) 
+{ 
+printf("Err Result: %d\n",n); 
+return 1; 
+} 
+
+for(i=0;i<n-1;i++) 
+{ 
+if (i==0) 
+{ 
+if ((a[0]<a[1])&&(a[1]>=a[2])) 
+{ 
+if((l==a[0])||(l==a[1])) 
+m++; 
+if((b==a[0])||(b==a[1])) 
+s++; 
+if((c==a[0])||(c==a[1])) 
+t++; 
+if((l!=a[0])&&(l!=a[1])) 
+q=0; 
+if((b!=a[0])&&(b!=a[1])) 
+w=0; 
+if((c!=a[0])&&(c!=a[1])) 
+e=0; 
+if(c==l) 
+e=0; 
+i+=1; 
+} 
+if((a[0]<a[1])&&(a[1]<a[2])&&(a[2]>=a[3])) 
+{ 
+if((l==a[0])||(l==a[1])||(l==a[2])) 
+m++; 
+if((b==a[0])||(b==a[1])||(b==a[2])) 
+s++; 
+if((c==a[0])||(c==a[1])||(c==a[2])) 
+t++; 
+if((l!=a[0])&&(l!=a[1])&&(l!=a[2])) 
+q=0; 
+if((b!=a[0])&&(b!=a[1])&&(b!=a[2])) 
+w=0; 
+if((c!=a[0])&&(c!=a[1])&&(c!=a[2])) 
+e=0; 
+if(c==l) 
+e=0; 
+i+=2; 
+} 
+} 
+else 
+{ 
+
+if ((a[i-1]>=a[i])&&(a[i]<a[i+1])&&(a[i+1]>=a[i+2])) 
+{ 
+if((l==a[i])||(l==a[i+1])) 
+m++; 
+if((b==a[i])||(b==a[i+1])) 
+s++; 
+if((c==a[i])||(c==a[i+1])) 
+t++; 
+if((l!=a[i])&&(l!=a[i+1])) 
+q=0; 
+if((b!=a[i])&&(b!=a[i+1])) 
+w=0; 
+if((c!=a[i])&&(c!=a[i+1])) 
+e=0; 
+if(c==l) 
+e=0; 
+i+=1; 
+} 
+if((a[i-1]>=a[i])&&(a[i]<a[i+1])&&(a[i+1]<a[i+2])&&(a[i+2]>=a[i+3])) 
+{ 
+if((l==a[i])||(l==a[i+1])||(l==a[i+2])) 
+m++; 
+if((b==a[i])||(b==a[i+1])||(b==a[i+2])) 
+s++; 
+if((c==a[i])||(c==a[i+1])||(c==a[i+2])) 
+t++; 
+if((l!=a[i])&&(l!=a[i+1])&&(l!=a[i+2])) 
+q=0; 
+if((b!=a[i])&&(b!=a[i+1])&&(b!=a[i+2])) 
+w=0; 
+if((c!=a[i])&&(c!=a[i+1])&&(c!=a[i+2])) 
+e=0; 
+if(c==l) 
+e=0; 
+i+=2; 
+} 
+} 
+} 
+r=m*q+s*w+t*e; 
+printf("%d %d %d %d %d %d",q,w,e,m,s,t); 
+printf("Result: %d\n",r); 
+free(a); 
+fclose(f); 
+return 0; 
+}
