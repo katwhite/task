@@ -1,0 +1,32 @@
+if ((f=fopen("11.txt","rt"))==NULL) 
+{ 
+printf("error\n"); 
+return 1; 
+} 
+
+if (fscanf (f,"%lf",&d) != 1) 
+{ 
+printf("error1\n"); 
+return 1; 
+} 
+
+while(fscanf(f,"%lf",&d)==1) 
+{ 
+m++; 
+} 
+n=m/2; 
+
+rtab = malloc(sizeof(struct R) * n); 
+rewind(f); 
+
+for (i=0;i<n+1;i++) 
+{ 
+fscanf(f,"%lf", &rtab[i].x); 
+fscanf(f,"%lf", &rtab[i].y); 
+} 
+
+if (rtab==NULL) 
+{ 
+printf("error2\n"); 
+return 1; 
+}
