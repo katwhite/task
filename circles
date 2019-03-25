@@ -1,0 +1,101 @@
+// circles.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
+
+#include "pch.h"
+#include <iostream>
+#include <stdbool.h>
+#include <math.h>
+#include <stdio.h>
+using namespace std;
+
+struct circle {
+	double x;
+	double y;
+	double r;
+	double min;
+	int t;
+
+};
+
+double len(circle c1, circle c2) {
+	double len = sqrt((c2.x - c1.x)(c2.x - c1.x) + (c2.y - c1.y)(c2.y - c1.y));
+	return len;
+}
+
+//int min_len(circle* circles, int m, circle cj, int j) {  // m - это количество кругов, находим минимальное расстояние
+//	double len_min = len(cj, circles[0]);
+//	for (int i = 1; i < m; i++) {
+//		if ((i!=j)&&(len(cj, circles[i]) < len_min)) {
+//			len_min = len(cj, circles[i];
+//			circles[j].t = i;
+//		}
+//	}
+//	return len_min;
+//}
+
+//bool intersect(circle c1, circle c2) {
+//	if (c1.r + c2.r == sqrt((c2.x -c1.x)(c2.x - c1.x) + (c2.y - c1.y)(c2.y - c1.y)))
+//		return true;
+//	else return false;
+//}
+
+void show(circle c) {
+	cout << "x: " << c.x << " ";
+	cout << "y: " << c.y << " ";
+	cout << "r: " << c.r << endl;
+}
+
+void sort(circle* c, int m) {
+	int i, mini = 0;
+	double min = c[0].min;
+	for (i = 1; i < m; i++) {
+		if (min > c[i].min) {
+			min = c[i].min;
+			mini = i;
+		}
+	}
+	/*cout << min;*/
+	while (m - mini != 0) {
+		circle b = c[m - 1];
+		for (int i = m - 1; i > 0; i--) {
+			c[i] = c[i - 1];
+		}
+		c[0] = b;
+		mini += 1;
+	}
+	show(c[0]);
+}
+
+
+int main()
+{
+	circle* circles = new circle;
+	//чтение из файла которое напишет дашенька лапочка милашечка муа фу бля
+	//ненавижу
+	//си???????????
+	for (int i = 0; i < m; i++) {
+		circles[i].r = 0;
+	}
+	for (int i = 0; i < m; i++) {  //нахождение минимального для каждого круга
+		double len_min = len(circles[0], circles[i]);
+		for (int j = 1; j < m / 2; j++) {
+			if (len(circles[i], circles[j]) < len_min) {
+				len_min = len(circles[i], circles[j]);
+				circles[i].t = j;
+			}
+		}
+		circles[i].min = len_min;
+	}
+	sort(circles, m);
+	for (int i = 0; i < m; i++) {
+		if (circles[circles[i].t].r == 0)
+			circles[i].r = circles[circles[i].t].r = circles[i].min / 2;
+		else
+			circles[i].r = circles[i].min - circles[circles[i].t].r;
+	}
+	for (int i = 0; i < m; i++) { //надо вывести это в файл все же ахах и мб нам надо только радиусы выводить?
+		show(circles[i]);
+	}
+
+	return 0;
+}
